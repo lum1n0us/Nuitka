@@ -177,7 +177,7 @@ def _writeConstantValue(output, constant_value):
             else:
                 output.write(b"Z" + to_byte(5))
         else:
-            output.write(b"f" + struct.pack("d", constant_value))
+            output.write(b"f" + struct.pack("=d", constant_value))
     elif constant_type is unicode:
         if str is not bytes:
             encoded = constant_value.encode("utf8", "surrogatepass")
@@ -260,7 +260,7 @@ def _writeConstantValue(output, constant_value):
             _writeConstantValue(output, constant_value.imag)
         else:
             output.write(b"j")
-            output.write(struct.pack("dd", constant_value.real, constant_value.imag))
+            output.write(struct.pack("=dd", constant_value.real, constant_value.imag))
 
     elif constant_type is bytearray:
         output.write(b"B" + _encodeVariableLength(len(constant_value)))
@@ -337,7 +337,7 @@ def _writeConstantStream(constants_reader):
     # TODO: Debug mode only?
     result.write(b".")
 
-    return count, struct.pack("H", count) + result.getvalue()
+    return count, struct.pack("=H", count) + result.getvalue()
 
 
 crc32 = 0
