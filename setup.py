@@ -61,6 +61,8 @@ def findNuitkaPackages():
             dirnames.remove("release")
         if "quality" in dirnames:
             dirnames.remove("quality")
+        if "wasi-python" in dirnames:
+            dirnames.remove("wasi-python")
 
         # Handled separately.
         if "inline_copy" in dirnames:
@@ -86,8 +88,8 @@ def addDataFiles(data_files, base_path, do_byte_compile=True):
         "%s/LICENSE*" % base_path,
         "%s/*/LICENSE*" % base_path,
         "%s/READ*" % base_path,
-        "%s/wasi-python/*" % base_path,
-        "%s/wasi-python/*/*" % base_path,
+        # "%s/wasi-python/*" % base_path,
+        # "%s/wasi-python/*/*" % base_path,
     )
 
     data_files.extend(patterns)
@@ -147,7 +149,7 @@ nuitka_packages = findNuitkaPackages()
 
 # Include extra files
 package_data = {
-    "": ["*.txt", "*.rst", "*.c", "*.h", "*.yml"],
+    "": ["*.txt", "*.rst", "*.c", "*.h", "*.yml", "wasi-python/**/*"],
     "nuitka.build": [
         "*.scons",
         "static_src/*.c",
@@ -385,7 +387,11 @@ with open("README.rst", "rb") as input_file:
         ".. image:: doc/images/Nuitka-Logo-Symbol.png\n", ""
     )
 
-install_requires = []
+install_requires = [
+    # "appdirs",
+    "tqdm",
+    "requests",
+]
 if sys.version_info >= (3, 7):
     install_requires.append("ordered-set >= 4.1.0")
 if sys.version_info[:2] == (2, 7):

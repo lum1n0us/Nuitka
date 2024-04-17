@@ -191,11 +191,14 @@ def main():
         MemoryUsage.showMemoryTrace()
 
 def py2wasm():
-    WASI_SDK_DIR = os.environ.get("WASI_SDK_DIR")
-    if not WASI_SDK_DIR:
-        print("Please set the WASI_SDK_DIR to continue")
-        return -1
-    clang_path = "%s/bin/clang" % WASI_SDK_DIR
+    from nuitka.utils.wasi_sdk import try_get_sdk_path
+
+    sdk_path = try_get_sdk_path()
+    # WASI_SDK_DIR = os.environ.get("WASI_SDK_DIR")
+    # if not WASI_SDK_DIR:
+    #     print("Please set the WASI_SDK_DIR to continue")
+    #     return -1
+    clang_path = "%s/bin/clang" % sdk_path
     if not os.path.isfile(clang_path):
         print("The SDK clang file doesn't exist: %s" % clang_path)
         return -1
