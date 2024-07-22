@@ -63,15 +63,16 @@ static void Nuitka_MarkAsyncgenAsNotRunning(struct Nuitka_AsyncgenObject *asyncg
 
 static long Nuitka_Asyncgen_tp_hash(struct Nuitka_AsyncgenObject *asyncgen) { return asyncgen->m_counter; }
 
-static PyObject *Nuitka_Asyncgen_get_name(struct Nuitka_AsyncgenObject *asyncgen) {
-    CHECK_OBJECT(asyncgen);
+static PyObject *Nuitka_Asyncgen_get_name(PyObject *self, void *data) {
+    CHECK_OBJECT(self);
 
+    struct Nuitka_AsyncgenObject *asyncgen = (struct Nuitka_AsyncgenObject *)self;
     Py_INCREF(asyncgen->m_name);
     return asyncgen->m_name;
 }
 
-static int Nuitka_Asyncgen_set_name(struct Nuitka_AsyncgenObject *asyncgen, PyObject *value) {
-    CHECK_OBJECT(asyncgen);
+static int Nuitka_Asyncgen_set_name(PyObject *self, PyObject *value, void *data) {
+    CHECK_OBJECT(self);
     CHECK_OBJECT_X(value);
 
     // Cannot be deleted, not be non-unicode value.
@@ -82,6 +83,7 @@ static int Nuitka_Asyncgen_set_name(struct Nuitka_AsyncgenObject *asyncgen, PyOb
         return -1;
     }
 
+    struct Nuitka_AsyncgenObject *asyncgen = (struct Nuitka_AsyncgenObject *)self;
     PyObject *tmp = asyncgen->m_name;
     Py_INCREF(value);
     asyncgen->m_name = value;
@@ -90,15 +92,16 @@ static int Nuitka_Asyncgen_set_name(struct Nuitka_AsyncgenObject *asyncgen, PyOb
     return 0;
 }
 
-static PyObject *Nuitka_Asyncgen_get_qualname(struct Nuitka_AsyncgenObject *asyncgen) {
-    CHECK_OBJECT(asyncgen);
+static PyObject *Nuitka_Asyncgen_get_qualname(PyObject *self, void *data) {
+    CHECK_OBJECT(self);
 
+    struct Nuitka_AsyncgenObject *asyncgen = (struct Nuitka_AsyncgenObject *)self;
     Py_INCREF(asyncgen->m_qualname);
     return asyncgen->m_qualname;
 }
 
-static int Nuitka_Asyncgen_set_qualname(struct Nuitka_AsyncgenObject *asyncgen, PyObject *value) {
-    CHECK_OBJECT(asyncgen);
+static int Nuitka_Asyncgen_set_qualname(PyObject *self, PyObject *value, void *data) {
+    CHECK_OBJECT(self);
     CHECK_OBJECT_X(value);
 
     // Cannot be deleted, not be non-unicode value.
@@ -109,6 +112,7 @@ static int Nuitka_Asyncgen_set_qualname(struct Nuitka_AsyncgenObject *asyncgen, 
         return -1;
     }
 
+    struct Nuitka_AsyncgenObject *asyncgen = (struct Nuitka_AsyncgenObject *)self;
     PyObject *tmp = asyncgen->m_qualname;
     Py_INCREF(value);
     asyncgen->m_qualname = value;
@@ -117,9 +121,10 @@ static int Nuitka_Asyncgen_set_qualname(struct Nuitka_AsyncgenObject *asyncgen, 
     return 0;
 }
 
-static PyObject *Nuitka_Asyncgen_get_ag_await(struct Nuitka_AsyncgenObject *asyncgen) {
-    CHECK_OBJECT(asyncgen);
+static PyObject *Nuitka_Asyncgen_get_ag_await(PyObject *self, void *data) {
+    CHECK_OBJECT(self);
 
+    struct Nuitka_AsyncgenObject *asyncgen = (struct Nuitka_AsyncgenObject *)self;
     if (asyncgen->m_yield_from) {
         Py_INCREF(asyncgen->m_yield_from);
         return asyncgen->m_yield_from;
@@ -129,7 +134,8 @@ static PyObject *Nuitka_Asyncgen_get_ag_await(struct Nuitka_AsyncgenObject *asyn
     }
 }
 
-static PyObject *Nuitka_Asyncgen_get_code(struct Nuitka_AsyncgenObject *asyncgen) {
+static PyObject *Nuitka_Asyncgen_get_code(PyObject *self, void *data) {
+    struct Nuitka_AsyncgenObject *asyncgen = (struct Nuitka_AsyncgenObject *)self;
     CHECK_OBJECT(asyncgen);
     CHECK_OBJECT(asyncgen->m_code_object);
 
@@ -137,8 +143,8 @@ static PyObject *Nuitka_Asyncgen_get_code(struct Nuitka_AsyncgenObject *asyncgen
     return (PyObject *)asyncgen->m_code_object;
 }
 
-static int Nuitka_Asyncgen_set_code(struct Nuitka_AsyncgenObject *asyncgen, PyObject *value) {
-    CHECK_OBJECT(asyncgen);
+static int Nuitka_Asyncgen_set_code(PyObject *self, PyObject *value, void *data) {
+    CHECK_OBJECT(self);
 
     PyThreadState *tstate = PyThreadState_GET();
 
@@ -146,7 +152,8 @@ static int Nuitka_Asyncgen_set_code(struct Nuitka_AsyncgenObject *asyncgen, PyOb
     return -1;
 }
 
-static PyObject *Nuitka_Asyncgen_get_frame(struct Nuitka_AsyncgenObject *asyncgen) {
+static PyObject *Nuitka_Asyncgen_get_frame(PyObject *self, void *data) {
+    struct Nuitka_AsyncgenObject *asyncgen = (struct Nuitka_AsyncgenObject *)self;
     CHECK_OBJECT(asyncgen);
     CHECK_OBJECT_X(asyncgen->m_frame);
 
@@ -159,8 +166,8 @@ static PyObject *Nuitka_Asyncgen_get_frame(struct Nuitka_AsyncgenObject *asyncge
     }
 }
 
-static int Nuitka_Asyncgen_set_frame(struct Nuitka_AsyncgenObject *asyncgen, PyObject *value) {
-    CHECK_OBJECT(asyncgen);
+static int Nuitka_Asyncgen_set_frame(PyObject *self, PyObject *value, void *data) {
+    CHECK_OBJECT(self);
     CHECK_OBJECT_X(value);
 
     PyThreadState *tstate = PyThreadState_GET();

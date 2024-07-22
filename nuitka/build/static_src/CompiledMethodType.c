@@ -15,7 +15,8 @@
 #include <structmember.h>
 #endif
 
-static PyObject *Nuitka_Method_get__doc__(struct Nuitka_MethodObject *method, void *closure) {
+static PyObject *Nuitka_Method_get__doc__(PyObject *self, void *data) {
+    struct Nuitka_MethodObject *method = (struct Nuitka_MethodObject *)self;
     PyObject *result = method->m_function->m_doc;
 
     if (result == NULL) {

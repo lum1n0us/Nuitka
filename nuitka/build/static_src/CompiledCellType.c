@@ -150,7 +150,8 @@ static int Nuitka_Cell_tp_clear(struct Nuitka_CellObject *cell) {
     return 0;
 }
 
-static PyObject *Nuitka_Cell_get_contents(struct Nuitka_CellObject *cell, void *closure) {
+static PyObject *Nuitka_Cell_get_contents(PyObject *self, void *data) {
+    struct Nuitka_CellObject *cell = (struct Nuitka_CallObject *)self;
     if (unlikely(cell->ob_ref == NULL)) {
         PyThreadState *tstate = PyThreadState_GET();
 
@@ -163,7 +164,8 @@ static PyObject *Nuitka_Cell_get_contents(struct Nuitka_CellObject *cell, void *
 }
 
 #if PYTHON_VERSION >= 0x370
-static int Nuitka_Cell_set_contents(struct Nuitka_CellObject *cell, PyObject *value) {
+static int Nuitka_Cell_set_contents(PyObject *self, PyObject *value, void *data) {
+    struct Nuitka_CellObject *cell = (struct Nuitka_CallObject *)self;
     PyObject *old = cell->ob_ref;
 
     if (old != NULL && value == NULL) {
