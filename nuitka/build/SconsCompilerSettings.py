@@ -678,6 +678,9 @@ def setupCCompiler(env, lto_mode, pgo_mode, job_count, onefile_compile):
         # expat
         # /Users/syrusakbary/Development/cpython-3.11/builddir/wasi/Modules/expat/
         env.Append(LINKFLAGS=["-lexpat"])
+
+        # 8M stack size.
+        env.Append(LINKFLAGS=["-z","stack-size=8388608"])
     # Support for macOS standalone to run on older OS versions.
     elif isMacOS():
         setEnvironmentVariable(env, "MACOSX_DEPLOYMENT_TARGET", env.macos_min_version)
