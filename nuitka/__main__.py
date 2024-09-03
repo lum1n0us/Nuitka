@@ -233,10 +233,10 @@ def py2wasm():
         "--disable-ccache",
         # "--onefile",
         "--lto=yes",
-        "--verbose",
-        "--debug",
-        "--python-flag=trace_imports",
-        "--trace-execution",
+        # "--verbose",
+        # "--debug",
+        # "--python-flag=trace_imports",
+        # "--trace-execution",
     ] + extra_args
 
     final_output_file = args.output or args.filename.replace(".py", ".wasm")
